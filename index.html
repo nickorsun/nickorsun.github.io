@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Y2K Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'VT323', monospace;
+      background: radial-gradient(circle at center, #d0f, #07f);
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin-top: 20px;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #f0f;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 80%;
+      margin-top: 30px;
+    }
+
+    .product {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #0ff;
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 1.4rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #fff;
+      margin: 5px 0 10px;
+    }
+
+    button {
+      background: linear-gradient(45deg, #0ff, #f0f);
+      border: none;
+      color: #000;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #f0f, #0ff);
+      color: #fff;
+      box-shadow: 0 0 15px #fff;
+    }
+
+    .cart {
+      background: rgba(0,0,0,0.4);
+      margin-top: 40px;
+      padding: 20px;
+      border-radius: 20px;
+      width: 70%;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .cart-item span {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>✨ Y2K Cyber Shop ✨</h1>
+
+  <div class="products">
+    <div class="product">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN9oInEy6QICTHWVGbNgtFIpj8J7l0Gw5cow" alt="Cherrys">
+      <h2>Product 1</h2>
+      <p>Cyber accessory for your inner glow.</p>
+      <p class="price">₴399</p>
+      <button onclick="addToCart('Product 1', 399)">Add to cart</button>
+    </div>
+    <div class="product">
+      <img src="https://www.nhmshop.co.uk/media/catalog/product/cache/dbb8d9894e400e5fbfae5c9a0ac6e419/x/s/xsp50476_1000x1000_ufo_led_neon_sign.jpg" alt="Product 2">
+      <h2>Product 2</h2>
+      <p>Retro gadget from the 2000s dream.</p>
+      <p class="price">₴699</p>
+      <button onclick="addToCart('Product 2', 699)">Add to cart</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/250x200.png?text=Product+3" alt="Product 3">
+      <h2>Product 3</h2>
+      <p>Limited edition Y2K vibes only.</p>
+      <p class="price">₴999</p>
+      <button onclick="addToCart('Product 3', 999)">Add to cart</button>
+    </div>
+  </div>
+
+  <div class="cart">
+    <h2>🛒 Your Cart</h2>
+    <div id="cart-items"></div>
+    <h3 id="cart-total"></h3>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function addToCart(product, price) {
+      cart.push({ name: product, price: price });
+      renderCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartDiv = document.getElementById('cart-items');
+      const totalDiv = document.getElementById('cart-total');
+      cartDiv.innerHTML = '';
+
+      if (cart.length === 0) {
+        cartDiv.innerHTML = '<p>Your cart is empty 💾</p>';
+        totalDiv.textContent = '';
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `<span>${item.name} — ₴${item.price}</span><button onclick="removeFromCart(${index})">❌ Remove</button>`;
+        cartDiv.appendChild(div);
+      });
+
+      totalDiv.textContent = `Total: ₴${total}`;
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
