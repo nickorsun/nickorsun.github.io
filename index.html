@@ -1,185 +1,343 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LL4NVQ4BXZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-LL4NVQ4BXZ');
-</script>
   <meta charset="UTF-8" />
+  <title>Повідомити про корупцію</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Y2K Shop</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'VT323', monospace;
-      background: radial-gradient(circle at center, #d0f, #07f);
-      color: #fff;
-      text-align: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 18px;
+      max-width: 720px;
+      width: 100%;
+      padding: 24px 24px 20px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      backdrop-filter: blur(10px);
+    }
+    .header {
+      margin-bottom: 20px;
+    }
+    .title {
+      font-size: 1.6rem;
+      margin: 0 0 6px;
+      color: #f9fafb;
+    }
+    .subtitle {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #9ca3af;
+      line-height: 1.4;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.1);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      margin-bottom: 10px;
+    }
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
+    form {
+      display: grid;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .field {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
+      gap: 6px;
     }
-
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      margin-top: 20px;
-      text-shadow: 0 0 10px #0ff, 0 0 20px #f0f;
+    label {
+      font-size: 0.9rem;
+      color: #e5e7eb;
     }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      width: 80%;
-      margin-top: 30px;
+    label span.required {
+      color: #f97371;
+      margin-left: 2px;
     }
-
-    .product {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      padding: 15px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.3);
-      backdrop-filter: blur(10px);
-      transition: 0.3s;
-    }
-
-    .product:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #0ff;
-    }
-
-    .product img {
+    input[type="text"],
+    input[type="email"],
+    input[type="datetime-local"],
+    textarea,
+    select {
       width: 100%;
-      border-radius: 15px;
-      margin-bottom: 10px;
-    }
-
-    .price {
-      font-size: 1.4rem;
-      color: #0ff;
-      text-shadow: 0 0 10px #fff;
-      margin: 5px 0 10px;
-    }
-
-    button {
-      background: linear-gradient(45deg, #0ff, #f0f);
-      border: none;
-      color: #000;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      padding: 10px 15px;
+      padding: 8px 10px;
       border-radius: 10px;
-      cursor: pointer;
-      transition: 0.2s;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
     }
-
-    button:hover {
-      background: linear-gradient(45deg, #f0f, #0ff);
-      color: #fff;
-      box-shadow: 0 0 15px #fff;
+    textarea {
+      min-height: 100px;
+      resize: vertical;
     }
-
-    .cart {
-      background: rgba(0,0,0,0.4);
-      margin-top: 40px;
-      padding: 20px;
-      border-radius: 20px;
-      width: 70%;
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    input::placeholder,
+    textarea::placeholder {
+      color: #6b7280;
     }
-
-    .cart-item {
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+      background: rgba(15, 23, 42, 0.97);
+    }
+    .hint {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    .files-box {
+      border-radius: 10px;
+      border: 1px dashed rgba(148, 163, 184, 0.8);
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.7);
+    }
+    .files-list {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #cbd5f5;
+      max-height: 90px;
+      overflow-y: auto;
+    }
+    .files-list div {
+      padding: 2px 0;
+      border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+    }
+    .consent-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #d1d5db;
+      margin-top: 4px;
     }
-
-    .cart-item span {
-      font-size: 1.2rem;
+    .consent-row input[type="checkbox"] {
+      margin-top: 2px;
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .btn-submit {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      border: none;
+      color: #022c22;
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 16px 30px rgba(22, 163, 74, 0.35);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    }
+    .btn-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(22, 163, 74, 0.5);
+      filter: brightness(1.05);
+    }
+    .btn-submit:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 20px rgba(22, 163, 74, 0.4);
+    }
+    .btn-submit span.icon {
+      font-size: 1rem;
+    }
+    .status {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    .status.success {
+      color: #4ade80;
+    }
+    .status.error {
+      color: #f97373;
+    }
+    @media (max-width: 640px) {
+      .container {
+        padding: 18px 16px 16px;
+      }
+      .title {
+        font-size: 1.4rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>✨ Y2K Cyber Shop ✨</h1>
+  <div class="container">
+    <div class="header">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Анонімні повідомлення підтримуються
+      </div>
+      <h1 class="title">Повідомити про корупцію</h1>
+      <p class="subtitle">
+        Опишіть факт корупції максимально докладно. Ви можете додати фото, відео, документи.
+        Особисті дані можна не вказувати, але контакт допоможе зворотному зв’язку.
+      </p>
+    </div>
 
-  <div class="products">
-    <div class="product">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN9oInEy6QICTHWVGbNgtFIpj8J7l0Gw5cow" alt="Cherrys">
-      <h2>Product 1</h2>
-      <p>Cyber accessory for your inner glow.</p>
-      <p class="price">₴399</p>
-      <button onclick="addToCart('Product 1', 399)">Add to cart</button>
-    </div>
-    <div class="product">
-      <img src="https://www.nhmshop.co.uk/media/catalog/product/cache/dbb8d9894e400e5fbfae5c9a0ac6e419/x/s/xsp50476_1000x1000_ufo_led_neon_sign.jpg" alt="Product 2">
-      <h2>Product 2</h2>
-      <p>Retro gadget from the 2000s dream.</p>
-      <p class="price">₴699</p>
-      <button onclick="addToCart('Product 2', 699)">Add to cart</button>
-    </div>
-    <div class="product">
-      <img src="https://m.media-amazon.com/images/I/717B4xHMDMS._AC_SL1500_.jpg" alt="Product 3">
-      <h2>Product 3</h2>
-      <p>Limited edition Y2K vibes only.</p>
-      <p class="price">₴999</p>
-      <button onclick="addToCart('Product 3', 999)">Add to cart</button>
-    </div>
-  </div>
+    <form id="reportForm">
+      <div class="field">
+        <label for="category">Категорія порушення <span class="required">*</span></label>
+        <select id="category" required>
+          <option value="">Оберіть категорію</option>
+          <option value="bribe">Вимагання / отримання хабаря</option>
+          <option value="abuse">Зловживання службовим становищем</option>
+          <option value="fraud">Фінансові махінації / привласнення коштів</option>
+          <option value="procurement">Порушення публічних закупівель</option>
+          <option value="other">Інше</option>
+        </select>
+      </div>
 
-  <div class="cart">
-    <h2>🛒 Your Cart</h2>
-    <div id="cart-items"></div>
-    <h3 id="cart-total"></h3>
+      <div class="field">
+        <label for="location">Місце події (орган, установа, адреса) <span class="required">*</span></label>
+        <input id="location" type="text" placeholder="Наприклад: ЦНАП міста Х, відділ реєстрації" required />
+      </div>
+
+      <div class="field">
+        <label for="datetime">Дата та час події</label>
+        <input id="datetime" type="datetime-local" />
+        <div class="hint">Якщо точної дати не пам’ятаєте — можна залишити порожнім і вказати в описі.</div>
+      </div>
+
+      <div class="field">
+        <label for="description">Опис події <span class="required">*</span></label>
+        <textarea id="description" placeholder="Хто, де, коли, за що вимагав/отримував вигоду, свідки, суми тощо" required></textarea>
+      </div>
+
+      <div class="field">
+        <label for="files">Фото / відео / документи</label>
+        <div class="files-box">
+          <input id="files" type="file" multiple accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx" />
+          <div class="hint">
+            Ви можете обрати кілька файлів. У реальній системі ці файли будуть завантажені на захищений сервер.
+          </div>
+          <div id="filesList" class="files-list"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="fullName">Ваше ім’я (опціонально)</label>
+        <input id="fullName" type="text" placeholder="Можна залишити порожнім" />
+      </div>
+
+      <div class="field">
+        <label for="contact">Контакт для зворотного зв’язку (опціонально)</label>
+        <input id="contact" type="text" placeholder="Телефон, email, інший спосіб" />
+        <div class="hint">Контактна інформація не передається третім особам, використовується лише для уточнення деталей.</div>
+      </div>
+
+      <div class="consent-row">
+        <input type="checkbox" id="consent" required />
+        <label for="consent">
+          Я підтверджую, що описані мною дані є правдивими наскільки мені відомо, та розумію, що неправдиве повідомлення
+          може мати юридичні наслідки.
+        </label>
+      </div>
+
+      <div class="footer">
+        <button type="submit" class="btn-submit">
+          <span class="icon">📤</span>
+          <span>Надіслати повідомлення</span>
+        </button>
+        <div id="status" class="status">Дані зберігаються локально (демо-режим).</div>
+      </div>
+    </form>
   </div>
 
   <script>
-    let cart = [];
+    const form = document.getElementById("reportForm");
+    const filesInput = document.getElementById("files");
+    const filesList = document.getElementById("filesList");
+    const statusEl = document.getElementById("status");
 
-    function addToCart(product, price) {
-      cart.push({ name: product, price: price });
-      renderCart();
-    }
+    filesInput.addEventListener("change", () => {
+      filesList.innerHTML = "";
+      const files = Array.from(filesInput.files || []);
+      if (!files.length) return;
+      files.forEach((f, idx) => {
+        const div = document.createElement("div");
+        div.textContent = (idx + 1) + ". " + f.name + " (" + Math.round(f.size / 1024) + " кБ)";
+        filesList.appendChild(div);
+      });
+    });
 
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      renderCart();
-    }
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-    function renderCart() {
-      const cartDiv = document.getElementById('cart-items');
-      const totalDiv = document.getElementById('cart-total');
-      cartDiv.innerHTML = '';
+      const report = {
+        category: document.getElementById("category").value,
+        location: document.getElementById("location").value.trim(),
+        datetime: document.getElementById("datetime").value || null,
+        description: document.getElementById("description").value.trim(),
+        fullName: document.getElementById("fullName").value.trim() || null,
+        contact: document.getElementById("contact").value.trim() || null,
+        // У реальному бекенді тут відправляли б самі файли (FormData / binary)
+        attachedFiles: Array.from(filesInput.files || []).map(f => ({
+          name: f.name,
+          size: f.size,
+          type: f.type
+        })),
+        createdAt: new Date().toISOString()
+      };
 
-      if (cart.length === 0) {
-        cartDiv.innerHTML = '<p>Your cart is empty 💾</p>';
-        totalDiv.textContent = '';
+      if (!report.category || !report.location || !report.description) {
+        statusEl.textContent = "Будь ласка, заповніть усі обов’язкові поля.";
+        statusEl.className = "status error";
         return;
       }
 
-      let total = 0;
+      try {
+        const key = "corruption_reports_demo";
+        const existing = JSON.parse(localStorage.getItem(key) || "[]");
+        existing.push(report);
+        localStorage.setItem(key, JSON.stringify(existing));
 
-      cart.forEach((item, index) => {
-        total += item.price;
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML = `<span>${item.name} — ₴${item.price}</span><button onclick="removeFromCart(${index})">❌ Remove</button>`;
-        cartDiv.appendChild(div);
-      });
-
-      totalDiv.textContent = `Total: ₴${total}`;
-    }
-
-    renderCart();
+        form.reset();
+        filesList.innerHTML = "";
+        statusEl.textContent = "Повідомлення збережено (локально у браузері). Для реальної системи потрібен сервер.";
+        statusEl.className = "status success";
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Помилка збереження. Перевірте налаштування браузера.";
+        statusEl.className = "status error";
+      }
+    });
   </script>
 </body>
 </html>
